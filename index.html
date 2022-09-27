@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+  </head>
+  <body>
+    <div class="calcbody">
+      <div class="inputfield">
+        <div class="previous">
+          <p id="previous"></p>
+        </div>
+
+        <div class="current">
+          <p id="current"></p>
+        </div>
+      </div>
+
+      <div class="topbuttons">
+        <button id="clear" data-key="67">CLEAR</button>
+        <button id="delete" data-key="8">DELETE</button>
+      </div>
+      <div class="mainbuttons">
+        <div class="col1">
+          <button value="7" data-key="55">7</button>
+          <button value="4" data-key="52">4</button>
+          <button value="1"data-key="49">1</button>
+          <button id="dot" value="." data-key="190">.</button>
+        </div>
+
+        <div class="col2">
+          <button value="8" data-key="57">8</button>
+          <button value="5" data-key="53">5</button>
+          <button value="2" data-key ="50">2</button>
+          <button value="0" data-key="48">0</button>
+        </div>
+
+        <div class="col3">
+          <button value="9" data-key="57">9</button>
+          <button value="6" data-key="54">6</button>
+          <button value="3" data-key="51">3</button>
+          <button id="equal" value="=" data-key="13">=</button>
+        </div>
+
+        <div class="col4">
+          <button id="default" value="/" data-key="55">÷</button>
+          <button id="default" value="*" data-key="220">x</button>
+          <button id="default" value="-" data-key="189">-</button>
+          <button id="default" value="+" data-key="187">+</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,114 @@
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.calcbody {
+  background-color: #aaa;
+  width: 300px;
+  height: 500px;
+  border-radius: 7px;
+  border: black solid 2px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.inputfield {
+  display: flex;
+  background-color: white;
+  width: 300px;
+  height: 100px;
+  border-radius: 5px;
+  border: black solid 2px;
+  flex-direction: column;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+#previous,
+#current {
+  margin-right: 9px;
+  margin-bottom: -20px;
+}
+
+#previous {
+  font-weight: bold;
+}
+#current {
+  font-weight: bold;
+  font-size: 34px;
+}
+
+.topbuttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  max-width: 300px;
+}
+.topbuttons button {
+  width: 170px;
+  height: 70px;
+  border-radius: 7px;
+  border: black solid 2px;
+  font-weight: bold;
+}
+#clear {
+  background-color: rgb(237, 101, 101);
+}
+#delete {
+  background-color: rgb(101, 135, 237);
+}
+
+.mainbuttons {
+  display: flex;
+  flex-shrink: 1;
+  gap: 17px;
+  max-width: 300px;
+  width: 300px;
+}
+.col1,
+.col2,
+.col3,
+.col4 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 1;
+}
+
+.mainbuttons button {
+  width: 62px;
+  height: 62px;
+  border-radius: 5px;
+  border: black solid 2px;
+  background-color: white;
+  font-weight: bold;
+}
+
+
+
+
+button:hover {
+  background-image: linear-gradient(rgb(0 0 0/10%) 0 0);
+}
+#equal,
+#default{    
+  background-color: orange;
+  font-size: 15px;;
+}
+#dot{
+    font-size: 25px;
+}
+#clicked{
+    background-color: rgb(57, 133, 226);
+    font-size: 15px;;
+
+    }
