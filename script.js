@@ -46,6 +46,12 @@ function eventListeners() {
   let childButtons = document.querySelectorAll("button");
   childButtons.forEach((button) => {
     button.addEventListener("click", () => {
+
+    //Animates the buttons
+    button.classList.add("keydown")     
+    button.addEventListener("transitionend", () => {
+    button.classList.remove("keydown")
+    })
       inputValue(button.value);
     });
   });
