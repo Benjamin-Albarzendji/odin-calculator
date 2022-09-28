@@ -116,11 +116,21 @@ function inputValue(e) {
     if (specialOperatorCheck) {
       return;
     } else {
+
+      //If dividing by zero
+      if (textContent === "Infinity"){
+        clear()
+        inputfield.textContent = e
+        return
+      }
       toClear = 0;
       inputfield.textContent = "";
 
+      //Solves bug when there is maximum number
       if (textContent.length === 10){
         inputfield.textContent = e
+
+   
     }
   }}
 
@@ -276,6 +286,11 @@ function calculate(val1, val2, operator) {
 
   //Cast the total into a number to get rid of trailing 0s
   total = Number(total);
+
+  if (total > 999999999999)
+  {
+    total = "999999999999"
+  }
 
   //Changes the inputfield and the appropiate variables for the rest of the functions.
   let inputfield = document.querySelector("#current");
