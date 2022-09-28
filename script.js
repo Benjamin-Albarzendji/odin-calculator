@@ -17,14 +17,16 @@ function main() {
 function eventListeners() {
   // Eventlistener for keydown events
   window.addEventListener("keydown", (e) => {
+
     let keydownValue = document.querySelector(`[data-key ="${e.keyCode}"]`);
+    
     if (keydownValue) {
       inputValue(keydownValue.value);
     }
   });
   //Eventlistener for click events
-  buttonContainer = document.querySelector(".mainbuttons");
-  childButtons = buttonContainer.querySelectorAll("button");
+  let buttonContainer = document.querySelector(".mainbuttons");
+  let childButtons = buttonContainer.querySelectorAll("button");
   childButtons.forEach((button) => {
     button.addEventListener("click", () => {
       inputValue(button.value);
@@ -60,25 +62,43 @@ function inputValue(e) {
   //Decides if the specialOperator was an initial click or if to initiate calculation
   if (calculations === 0) {
     if (specialOperatorCheck && value1 === "") {
-      value1 = textContent;
+      value1 = textContent
       toClear = 1;
       return;
 
       //Decides if it's time to make a calculation on the first pair of values
-    } else if (specialOperatorCheck && value1 !== "") {
-      value2 = textContent;
-      return calculate(value1, value2, calcOperator);
-    }
+    } 
+    // else if (specialOperatorCheck && value1 !== "") {
+    //   value2 = textContent;
+    //   return calculate(value1, value2, calcOperator);
+    // }
   }
 
-  if (calculations !== 0) {
-    if (specialOperatorCheck) {
-      value2 = textContent;
-      return calculate(value1, value2, calcOperator);
-    }
-  }
+//   if (calculations !== 0) {
+//     if (specialOperatorCheck) {
+//       value2 = textContent
+//       return calculate(value1, value2, calcOperator);
+//     }
+//   }
 
+
+//Handles "0" at the start. Allows only dot to follow, otherwise replaces it 
+if (textContent === "0"){
+    if (e === "."){
+        inputfield.textContent += e;
+        return
+    }
+    else {
+        inputfield.textContent = e
+        return
+    }
+}
   // Checks if a "dot" or "." has been input and handles that case
+  if (e === "."){
+    if (textContent.includes(".")){
+        return
+    }
+  }
 
   //Inputs the digit if everything went well
   inputfield.textContent += e;
@@ -90,9 +110,9 @@ function isSpecialOperator(e) {
   let textContent = inputfield.textContent;
   let upperValue = document.querySelector("#previous");
 
-  //Operator buttons
-  let operatorButtonsContainer = document.querySelector(".col4");
-  let operatorButtons = operatorButtonsContainer.querySelectorAll("button");
+    //Operator buttons
+    let operatorButtonsContainer = document.querySelector(".col4");
+    let operatorButtons = operatorButtonsContainer.querySelectorAll("button");
 
   //List of special operators
   let specialOperators = ["+", "-", "x", "/", "="];
@@ -105,7 +125,7 @@ function isSpecialOperator(e) {
       pressCheck = "";
       operatorButtons.forEach((button) => {
         //Restores all special operators to their default state
-        button.id = "default";
+        button.id = "default";     
       });
 
       return true;
@@ -116,6 +136,7 @@ function isSpecialOperator(e) {
     return true;
   }
 
+
   //Checks for the remaining special operators that !== "="
   if (specialOperators.includes(e)) {
     //Does not  allow for special operators on a initial empty field
@@ -125,8 +146,8 @@ function isSpecialOperator(e) {
 
     //Corrects the behaviour of spcecial operator button so it does not override the operator of an on-going calculation
     if (value1 !== "" && textContent !== "" && toClear === 0) {
-      value2 = textContent;
-      calculate(value1, value2, e);
+        value2 = textContent;
+      calculate(value1, value2, e)
       toClear = 1;
       operatorButtons.forEach((button) => {
         //Restores all special operators to their default state
@@ -171,14 +192,39 @@ function isSpecialOperator(e) {
   return false;
 }
 
-function calculate(val1, val2, operator) {
-  if (calcOperator === "-") {
-    total = parseFloat(val1) - parseFloat(val2);
-  } else {
-    total = parseFloat(val1) + parseFloat(val2);
-  }
-  //The function calculates with calcOperator. The operator var is cosmetic
 
+function calculate(val1, val2, operator) {
+    
+    //The function calculates with calcOperator. The operator var is cosmetic
+    let total = 0
+    if (calcOperator === "-"){
+        total = parseFloat(val1) - parseFloat(val2)
+    }
+
+    else if (calcOperator ==="+") {
+        total = parseFloat(val1) + parseFloat(val2)
+    }
+
+    else if (calcOperator ==="/"){
+        total = parseFloat(val1) / parseFloat(val2)
+    }
+
+    else {
+        total = parseFloat(val1) * parseFloat(val2)
+    }
+    
+  
+//Checks if int or float
+  if (parseInt(total)){
+    total = parseInt(total)
+  }
+
+  //Limits the decimal numbers if float
+  else {
+    
+    total = total.toFixed(3)
+  }
+  
   let inputfield = document.querySelector("#current");
   let upperValue = document.querySelector("#previous");
   inputfield.textContent = total;
