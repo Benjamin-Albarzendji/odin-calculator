@@ -1,9 +1,10 @@
 //Global values for the calculator
-let value1 = 0;
-let value2 = 0
+let value1 = "";
+let value2 = "";
+let pressCheck = "";
 let calcOperator = "";
 let toClear = 0;
-let calculations = 0
+let calculations = 0;
 
 main();
 
@@ -36,121 +37,153 @@ function inputValue(e) {
   //Grabs the current inputfield values
   let inputfield = document.querySelector("#current");
   let textContent = inputfield.textContent;
-  let upperValue = document.querySelector("#previous");
-  
+
   //Checks if its a specialOperator
   specialOperatorCheck = isSpecialOperator(e);
-  
+
   //Checks if its a specialOperator trying to work on nothing
-  if (specialOperatorCheck && textContent ===""){
-    return console.log("hello")
+  if (specialOperatorCheck && textContent === "") {
+    return;
   }
 
   //Checks if a special operator has been chosen, to clear the field
   if (toClear !== 0) {
-    toClear = 0;
-    upperValue.textContent = `${textContent} ${calcOperator}`;
-    inputfield.textContent = "";  
-  }
+    if (specialOperatorCheck) {
+      return;
+    } else {
+      toClear = 0;
 
-  if (calculations === 0){
-    console.log("maybe")
-  //Decides if the specialOperator was an initial click or if to initiate calculation
-  if (specialOperatorCheck && value1 === 0) {
-    value1 = parseFloat(textContent);
-    toClear = 1;
-    return;
-
-  } else if (specialOperatorCheck && value1 !== 0) {
-    upperValue.textContent = `${textContent} ${e}`;
-    value2 = parseFloat(textContent);
-    return calculate(value1, value2, calcOperator);
-  }
-  }
-
-  if (calculations !== 0){
-    if (specialOperatorCheck)
-    {
-        console.log("wtf")
-        value2 = parseFloat(textContent)
-        return calculate(value1, value2, calcOperator);
+      inputfield.textContent = "";
     }
-
-
   }
-  
 
+  //Decides if the specialOperator was an initial click or if to initiate calculation
+  if (calculations === 0) {
+    if (specialOperatorCheck && value1 === "") {
+      value1 = textContent;
+      toClear = 1;
+      return;
 
-  //     // Checks if a "dot" or "." has been input and handles that case
-  //   } if (e === ".") {
-  //     if (
-  //       //Checks if there it's an empty inputfield or a special operator was the last entered value. Will not allow a "." then
-  //       specialOperators.includes(textContent.charAt(textContent.length - 1)) ||
-  //       textContent.length === 0
-  //     ) {
-  //       return;
-  //       //Makes sure the "." character can only be added on either side of a special operator.
-  //     } else if (textContent.includes(".")) {
-  //       specialOperators.forEach((operator) => {
-  //         if (textContent.includes(operator) === true) {
-  //           let operatorIndex = textContent.indexOf(operator);
-  //           let dotIndex = textContent.indexOf(".");
+      //Decides if it's time to make a calculation on the first pair of values
+    } else if (specialOperatorCheck && value1 !== "") {
+      value2 = textContent;
+      return calculate(value1, value2, calcOperator);
+    }
+  }
 
-  //           if (operatorIndex > dotIndex) {
-  //             let dotCount = textContent.split(".");
-  //             if (dotCount.length < 3) {
-  //               inputfield.textContent += e;
-  //             }
-  //           }
-  //         }
-  //       });
-  //     } else {
-  //       inputfield.textContent += e;
-  //     }
-  //   } else {
+  if (calculations !== 0) {
+    if (specialOperatorCheck) {
+      value2 = textContent;
+      return calculate(value1, value2, calcOperator);
+    }
+  }
+
+  // Checks if a "dot" or "." has been input and handles that case
+
+  //Inputs the digit if everything went well
   inputfield.textContent += e;
-  //   }
-  // }
 }
 
 function isSpecialOperator(e) {
-  //List of special operators
-  let specialOperators = ["+", "-", "*", "/", "="];
+  //Grabs the inputfields
+  let inputfield = document.querySelector("#current");
+  let textContent = inputfield.textContent;
+  let upperValue = document.querySelector("#previous");
 
+  //Operator buttons
+  let operatorButtonsContainer = document.querySelector(".col4");
+  let operatorButtons = operatorButtonsContainer.querySelectorAll("button");
+
+  //List of special operators
+  let specialOperators = ["+", "-", "x", "/", "="];
+
+  //Equal Button
+  if (e === "=") {
+    if (value1 !== "" && textContent !== "" && toClear === 0) {
+      value2 = textContent;
+      calculate(value1, value2, "");
+      pressCheck = "";
+      operatorButtons.forEach((button) => {
+        //Restores all special operators to their default state
+        button.id = "default";
+      });
+
+      return true;
+    }
+  }
+  //Disables the equal button when the toClear value is not 0, for correct behaviour.
+  if (e === "=" && toClear !== 0) {
+    return true;
+  }
+
+  //Checks for the remaining special operators that !== "="
   if (specialOperators.includes(e)) {
+    //Does not  allow for special operators on a initial empty field
+    if (textContent.length === 0 && value1 === "") {
+      return true;
+    }
+
+    //Corrects the behaviour of spcecial operator button so it does not override the operator of an on-going calculation
+    if (value1 !== "" && textContent !== "" && toClear === 0) {
+      value2 = textContent;
+      calculate(value1, value2, e);
+      toClear = 1;
+      operatorButtons.forEach((button) => {
+        //Restores all special operators to their default state
+        button.id = "default";
+        if (e === button.value) {
+          //Checks if the special operator was already clicked
+          if (pressCheck === e) {
+            button.id = "default";
+            pressCheck = e;
+          } else {
+            button.id = "clicked";
+            pressCheck = e;
+            calcOperator = e;
+          }
+        }
+      });
+      return true;
+    }
+
     //Makes sure only one special operator is active
-    operatorButtonsContainer = document.querySelector(".col4");
-    operatorButtons = operatorButtonsContainer.querySelectorAll("button");
     operatorButtons.forEach((button) => {
       //Restores all special operators to their default state
       button.id = "default";
       if (e === button.value) {
         //Checks if the special operator was already clicked
-        if (calcOperator === e) {
+        if (pressCheck === e) {
           button.id = "default";
+          pressCheck = "";
         } else {
           button.id = "clicked";
+          pressCheck = e;
           calcOperator = e;
+          upperValue.textContent = `${textContent} ${calcOperator}`;
         }
       }
     });
+
     return true;
   }
-  
+
+  // If not special operator
   return false;
 }
 
 function calculate(val1, val2, operator) {
-  total = val1 + val2;
+  if (calcOperator === "-") {
+    total = parseFloat(val1) - parseFloat(val2);
+  } else {
+    total = parseFloat(val1) + parseFloat(val2);
+  }
+  //The function calculates with calcOperator. The operator var is cosmetic
 
   let inputfield = document.querySelector("#current");
-  let textContent = inputfield.textContent;
   let upperValue = document.querySelector("#previous");
-  let upperValueNumber = upperValue.textContent;
   inputfield.textContent = total;
-  upperValue.textContent = `${val1} ${calcOperator} ${val2} = ${total}`
-  value1 = total
+  upperValue.textContent = `${total} ${operator}`;
+  value1 = total;
   toClear = 1;
   calculations += 1;
-  calcOperator = ""
 }
