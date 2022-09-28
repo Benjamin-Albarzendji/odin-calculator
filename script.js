@@ -19,6 +19,12 @@ function eventListeners() {
   window.addEventListener("keydown", (e) => {
     let keydownValue = document.querySelector(`[data-key ="${e.keyCode}"]`);
 
+   //Animates the buttons
+    keydownValue.classList.add("keydown")     
+    keydownValue.addEventListener("transitionend", () => {
+    keydownValue.classList.remove("keydown")
+    })
+  
     //Calls the clear function
     if (e.keyCode === "67") {
       clear();

@@ -50,6 +50,7 @@ body {
   justify-content: space-between;
   gap: 15px;
   max-width: 300px;
+  
 }
 .topbuttons button {
   width: 170px;
@@ -57,6 +58,7 @@ body {
   border-radius: 7px;
   border: black solid 2px;
   font-weight: bold;
+  transition: all .07s ease;
 }
 #clear {
   background-color: rgb(237, 101, 101);
@@ -71,6 +73,7 @@ body {
   gap: 17px;
   max-width: 300px;
   width: 300px;
+  
 }
 .col1,
 .col2,
@@ -91,6 +94,7 @@ body {
   border: black solid 2px;
   background-color: white;
   font-weight: bold;
+  transition: all .07s ease;
 }
 
 
@@ -99,6 +103,11 @@ body {
 button:hover {
   background-image: linear-gradient(rgb(0 0 0/10%) 0 0);
 }
+
+.keydown {
+    background-image: linear-gradient(rgb(0 0 0/10%) 0 0);
+    transform: scale(1.1)
+  }
 #equal,
 #default{    
   background-color: orange;
