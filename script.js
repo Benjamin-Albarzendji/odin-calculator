@@ -13,6 +13,7 @@ function main() {
   eventListeners();
 }
 
+//Eventlisteners
 function eventListeners() {
   // Eventlistener for keydown events
   window.addEventListener("keydown", (e) => {
@@ -63,6 +64,7 @@ function clear() {
 
 //Deletes last character
 function del(e) {
+
   let inputfield = document.querySelector("#current");
   let textContent = inputfield.textContent;
   inputfield.textContent = textContent.slice(0, -1);
@@ -72,9 +74,9 @@ function del(e) {
     inputfield.textContent = 0;
   }
 
-  if ((toChange = 1)) {
+  if (toClear === 1) {
     inputfield.textContent = 0;
-    toChange = 0;
+    toClear = 0;
   }
 }
 
@@ -109,10 +111,12 @@ function inputValue(e) {
       return;
     } else {
       toClear = 0;
-
       inputfield.textContent = "";
+
+      if (textContent.length === 10){
+        inputfield.textContent = e
     }
-  }
+  }}
 
   //Decides if the specialOperator was an initial click or if to initiate calculation
   if (calculations === 0) {
@@ -120,21 +124,8 @@ function inputValue(e) {
       value1 = textContent;
       toClear = 1;
       return;
-
-      //Decides if it's time to make a calculation on the first pair of values
     }
-    // else if (specialOperatorCheck && value1 !== "") {
-    //   value2 = textContent;
-    //   return calculate(value1, value2, calcOperator);
-    // }
   }
-
-  //   if (calculations !== 0) {
-  //     if (specialOperatorCheck) {
-  //       value2 = textContent
-  //       return calculate(value1, value2, calcOperator);
-  //     }
-  //   }
 
   //Handles "0" at the start. Allows only dot to follow, otherwise replaces it
   if (textContent === "0") {
@@ -151,6 +142,11 @@ function inputValue(e) {
     if (textContent.includes(".")) {
       return;
     }
+  }
+
+  //Limits maximum length
+  if (textContent.length === 10){
+    return
   }
 
   //Inputs the digit if everything went well
@@ -208,7 +204,7 @@ function isSpecialOperator(e) {
           //Checks if the special operator was already clicked
           if (pressCheck === e) {
             button.id = "default";
-            pressCheck = e;
+            pressCheck = ""
           } else {
             button.id = "clicked";
             pressCheck = e;
@@ -259,14 +255,17 @@ function calculate(val1, val2, operator) {
   }
 
   //Checks if int or float
-
+  let maxDecimals = 10
+  let length = parseInt(total).toString().length
+  
   if (total % 1 === 0) {
     total = parseInt(total);
   }
 
+  
   //Limits the decimal numbers if float
   else {
-    total = total.toFixed(8);
+    total = total.toFixed(maxDecimals - length);
   }
 
   //Cast the total into a number to get rid of trailing 0s
