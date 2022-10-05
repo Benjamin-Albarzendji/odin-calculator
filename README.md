@@ -1,6 +1,6 @@
 # odin-calculator
 
-<img src="calc_img.png" alt="drawing" width="350"/>
+<img src="Calc_img.png" alt="drawing" width="350"/>
 
 ### Description
 #### This is my take on the final project for the Odin Project Foundations course. Every single line of code and CSS was done by me. 
