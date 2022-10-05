@@ -1,10 +1,6 @@
 # odin-calculator
 
-![Alt text](Calc_img.png "Optional Title")
-
-Smaller logo: ![Alt][1]
-
-[1]: Calc_img.png "Title"
+<img src="Calc_img.png" alt="drawing" width="350"/>
 
 ### Description
 #### This is my take on the final project for the Odin Project Foundations course. Every single line of code and CSS was done by me. 
