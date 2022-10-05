@@ -1,10 +1,10 @@
 # odin-calculator
 
-![Alt text](/odin_projects/odin-calculator/Calc_img.png "Optional Title")
+![Alt text](Calc_img.png "Optional Title")
 
 Smaller logo: ![Alt][1]
 
-[1]: /Users/benjaminalbarzendji/repos/odin_projects/odin-calculator/Calc_img.png "Title"
+[1]: Calc_img.png "Title"
 
 ### Description
 #### This is my take on the final project for the Odin Project Foundations course. Every single line of code and CSS was done by me. 
